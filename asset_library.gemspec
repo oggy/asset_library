@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{asset_library}
-  s.version = "0.5.0"
+  s.version = "0.5.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["adamh", "alegscogs", "oggy"]
-  s.date = %q{2010-02-24}
+  s.date = %q{2010-03-11}
   s.email = %q{adam@adamhooper.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -30,19 +30,19 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/adamh/asset_library}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Manage and bundle CSS and JavaScript files}
   s.test_files = [
-    "spec/asset_library_spec.rb",
-     "spec/asset_library/asset_module_spec.rb",
-     "spec/asset_library/compiler/default_spec.rb",
+    "spec/asset_library/asset_module_spec.rb",
+     "spec/asset_library/asset_spec.rb",
      "spec/asset_library/compiler/base_spec.rb",
      "spec/asset_library/compiler/closure_spec.rb",
+     "spec/asset_library/compiler/default_spec.rb",
      "spec/asset_library/compiler_spec.rb",
-     "spec/asset_library/asset_spec.rb",
      "spec/asset_library/helpers_spec.rb",
-     "spec/spec_helper.rb",
-     "spec/integration_spec.rb"
+     "spec/asset_library_spec.rb",
+     "spec/integration_spec.rb",
+     "spec/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then

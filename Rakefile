@@ -4,10 +4,10 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "asset_library"
+    gem.name = "patch-asset_library"
     gem.summary = %Q{Manage and bundle CSS and JavaScript files}
-    gem.email = "adam@adamhooper.com"
-    gem.homepage = "http://github.com/adamh/asset_library"
+    gem.email = "george@patch.com"
+    gem.homepage = "http://github.com/oggy/asset_library/tree/patch"
     gem.add_dependency 'adamh-glob_fu', '>= 0.0.4'
     gem.authors = ["adamh", "alegscogs", "oggy"]
     gem.files = FileList['lib/**/*.rb', 'rails/**/*.rb'].to_a

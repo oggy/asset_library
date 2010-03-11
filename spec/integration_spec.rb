@@ -6,10 +6,12 @@ describe(AssetLibrary) do
   class ReverseCompiler < AssetLibrary::Compiler::Base
     def write_all_caches(format = nil)
       asset_modules.each do |asset_module|
-        open(output_path(asset_module, format), 'w') do |file|
+        asset_module.each_compilation do |input_paths, output_path|
+          open(output_path, 'w') do |file|
           file.print config[:header]
-          input_paths(asset_module, format).reverse_each do |input|
-            file << File.read(input)
+            input_paths.reverse_each do |input|
+              file << File.read(input)
+            end
           end
         end
       end

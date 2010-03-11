@@ -8,6 +8,7 @@ class AssetLibrary
     def initialize(name, config)
       @name = name.to_s
       @config = config
+      add_default_format
     end
 
     attr_reader :name
@@ -67,6 +68,28 @@ class AssetLibrary
     def cache_asset(format = nil)
       extra = format ? ".#{format}" : ''
       Asset.new(File.join(AssetLibrary.root, config[:base], "#{config[:cache]}#{extra}.#{config[:suffix]}"))
+    end
+
+    # Return the formats to generate.
+    def formats
+      (config[:formats] || {}).keys.sort_by{|sym| sym.to_s}
+    end
+
+    # Yield each set of input paths with their output path.  All paths
+    # are absolute.
+    def each_compilation
+      formats.each do |format|
+        inputs = assets(format).map { |asset| asset.absolute_path }
+        output = cache_asset(format).absolute_path
+        yield inputs, output
+      end
+    end
+
+    private
+
+    def add_default_format
+      config[:formats] ||= {}
+      config[:formats][nil] = [nil]
     end
   end
 end

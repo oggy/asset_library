@@ -15,17 +15,19 @@ class AssetLibrary
 
       def write_all_caches(format = nil)
         asset_modules.each do |asset_module|
-          command = [config[:java]]
-          command.concat(config[:java_flags])
-          command << '-jar' << config[:path]
-          command.concat(config[:flags])
-          command.concat(asset_module.compiler_flags)
-          command << '--js_output_file' << "#{output_path(asset_module, format)}"
-          input_paths(asset_module, format).each do |input|
-            command << '--js' << input
+          asset_module.each_compilation do |inputs, output|
+            command = [config[:java]]
+            command.concat(config[:java_flags])
+            command << '-jar' << config[:path]
+            command.concat(config[:flags])
+            command.concat(asset_module.compiler_flags)
+            command << '--js_output_file' << "#{output}"
+            inputs.each do |input|
+              command << '--js' << input
+            end
+            system *command or
+              raise Error, "closure compiler failed"
           end
-          system *command or
-            raise Error, "closure compiler failed"
         end
       end
 

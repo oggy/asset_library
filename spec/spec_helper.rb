@@ -44,13 +44,10 @@ end
 module CompilerHelpers
   def mock_asset_module(name, format, output_path, *input_paths)
     config = input_paths.last.is_a?(Hash) ? input_paths.pop : {}
-    output_asset = mock(:absolute_path => output_path)
-    input_assets = input_paths.map{|path| mock(:absolute_path => path)}
     asset_module = mock(:name => name)
-    asset_module.stub!(:cache_asset).with(format).and_return(output_asset)
-    asset_module.stub!(:assets).with(format).and_return(input_assets)
     asset_module.stub!(:compiler_flags).and_return(config[:compiler_flags] || [])
     asset_module.stub!(:config).and_return(config)
+    asset_module.stub!(:each_compilation).and_yield(input_paths, output_path)
     asset_module
   end
 end

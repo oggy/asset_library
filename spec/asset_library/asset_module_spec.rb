@@ -120,6 +120,19 @@ describe(AssetLibrary::AssetModule) do
     end
   end
 
+  describe('#each_compilation') do
+    it('should yield each set of input and output files') do
+      stub_fs([ '/c/file1.css', '/c/file1.e1.css', '/c/file2.css' ])
+      asset_module = m(css_config( :files => ['file1', 'file2'], :formats => { :f1 => [nil, 'e1'], :f2 => ['e1'] } ))
+      yields = asset_module.to_enum(:each_compilation).to_a
+      yields.should == [
+        [["#{prefix}/c/file1.css", "#{prefix}/c/file2.css"], "#{prefix}/c/cache.css"],
+        [["#{prefix}/c/file1.css", "#{prefix}/c/file2.css", "#{prefix}/c/file1.e1.css"], "#{prefix}/c/cache.f1.css"],
+        [["#{prefix}/c/file1.e1.css"], "#{prefix}/c/cache.f2.css"],
+      ]
+    end
+  end
+
   private
 
   def m(config)
